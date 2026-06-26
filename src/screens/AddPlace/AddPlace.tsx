@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import {} from "react-native";
-import { Input } from "../../components";
+import { ImagePicker, Input } from "../../components";
 
 const AddPlace = () => {
   return (
     <ScrollView style={styles.container}>
       <Input label="Title" />
+      <ImagePicker />
     </ScrollView>
   );
 };
