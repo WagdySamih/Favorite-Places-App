@@ -1,10 +1,14 @@
-import { Alert, Button, StyleSheet, View, Image, Text } from "react-native";
+import { useState } from "react";
+import { Alert, StyleSheet, View, Image, Text } from "react-native";
 import {
   launchCameraAsync,
   PermissionStatus,
   useCameraPermissions,
 } from "expo-image-picker";
-import { useState } from "react";
+import { Camera } from "lucide-react-native";
+
+import { Button } from ".";
+import { COLORS } from "../constants";
 
 export const ImagePicker = () => {
   const [image, setImage] = useState<string>();
@@ -36,14 +40,12 @@ export const ImagePicker = () => {
       aspect: [16, 9],
       quality: 0.5,
     });
-    console.log(JSON.stringify(res, null, 2));
     setImage(res.assets?.[0]?.uri);
   };
 
   return (
     <View style={styles.container}>
       <View>
-        {" "}
         {image ? (
           <Image style={styles.image} source={{ uri: image }} />
         ) : (
@@ -52,7 +54,11 @@ export const ImagePicker = () => {
           </Text>
         )}
       </View>
-      <Button title="Take Photo" onPress={onTakePhoto} />
+      <Button
+        text="Take Photo"
+        onPress={onTakePhoto}
+        icon={<Camera color={COLORS.primary100} size={20} />}
+      />
     </View>
   );
 };
@@ -63,13 +69,16 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    aspectRatio: 16 / 9,
     borderRadius: 8,
     marginBottom: 12,
+    height: 200,
   },
   fallbackText: {
-    color: "white",
+    color: COLORS.gray700,
     textAlign: "center",
-    marginVertical: 8,
+    verticalAlign: "middle",
+    marginBottom: 12,
+    height: 200,
+    backgroundColor: COLORS.primary100,
   },
 });
