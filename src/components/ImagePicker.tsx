@@ -7,7 +7,7 @@ import {
 } from "expo-image-picker";
 import { Camera } from "lucide-react-native";
 
-import { Button } from ".";
+import { Button } from "./Button";
 import { COLORS } from "../constants";
 
 export const ImagePicker = () => {
@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
   fallbackText: {
     color: COLORS.gray700,
     textAlign: "center",
-    verticalAlign: "middle",
     marginBottom: 12,
     height: 200,
+    paddingVertical: 85,
     backgroundColor: COLORS.primary100,
   },
 });

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleProp, StyleSheet, Text } from "react-native";
 import { COLORS } from "../constants";
 
 type Props = {
@@ -6,6 +6,7 @@ type Props = {
   icon?: React.ReactNode;
   onPress: () => void;
   variant?: "primary" | "outlined" | "text";
+  style?: StyleProp<any>;
 };
 
 export const Button: React.FC<Props> = ({
@@ -13,6 +14,7 @@ export const Button: React.FC<Props> = ({
   icon,
   onPress,
   variant = "outlined",
+  style,
 }) => (
   <Pressable
     style={({ pressed }) => [
@@ -20,6 +22,7 @@ export const Button: React.FC<Props> = ({
       pressed && styles.pressed,
       variant === "outlined" && styles.outlined,
       variant === "text" && styles.textBtn,
+      style,
     ]}
     onPress={onPress}
   >

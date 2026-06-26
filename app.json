@@ -36,6 +36,12 @@
             }
           }
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow access to use your location."
+        }
       ]
     ]
   }
