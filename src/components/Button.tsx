@@ -27,14 +27,7 @@ export const Button: React.FC<Props> = ({
     onPress={onPress}
   >
     {icon}
-    <Text
-      style={[
-        styles.textDark,
-        (variant === "outlined" || variant === "text") && styles.textLight,
-      ]}
-    >
-      {text}
-    </Text>
+    <Text style={[styles.textLight]}>{text}</Text>
   </Pressable>
 );
 
@@ -42,7 +35,11 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: COLORS.primary100,
+    margin: 4,
+    backgroundColor: COLORS.primary800,
+    borderWidth: 2,
+    borderColor: COLORS.primary800,
+
     borderRadius: 6,
     flexDirection: "row",
     justifyContent: "center",

@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Plus } from "lucide-react-native";
 
-import { AddPlace, AllPlaces } from "./src/screens";
+import { AddPlace, AllPlaces, Map } from "./src/screens";
 import { IconButton } from "./src/components";
 import { COLORS } from "./src/constants";
 
@@ -49,6 +49,14 @@ export default function App() {
             component={AddPlace}
             options={{
               title: "Add New Place",
+              headerBackTitle: "Back",
+            }}
+          />
+          <Stack.Screen
+            name="Map"
+            component={Map}
+            options={{
+              title: "Map",
               headerBackTitle: "Back",
             }}
           />

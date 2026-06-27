@@ -10,7 +10,11 @@ import { Camera } from "lucide-react-native";
 import { Button } from "./Button";
 import { COLORS } from "../constants";
 
-export const ImagePicker = () => {
+type Props = {
+  onImagePick: (image: string) => void;
+};
+
+export const ImagePicker: React.FC<Props> = ({ onImagePick }) => {
   const [image, setImage] = useState<string>();
   const [permissions, requestPermissions] = useCameraPermissions();
 
@@ -41,6 +45,7 @@ export const ImagePicker = () => {
       quality: 0.5,
     });
     setImage(res.assets?.[0]?.uri);
+    if (res.assets?.[0]?.uri) onImagePick(res.assets[0].uri);
   };
 
   return (

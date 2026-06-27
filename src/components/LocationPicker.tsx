@@ -1,24 +1,44 @@
+import { useEffect } from "react";
 import { Alert, Pressable, StyleSheet, View, Image, Text } from "react-native";
-import { Button } from "./Button";
 import { LocateIcon, Map } from "lucide-react-native";
-import { COLORS } from "../constants";
 import {
   getCurrentPositionAsync,
   PermissionStatus,
   useForegroundPermissions,
 } from "expo-location";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-import { useState } from "react";
-import { getMapPreview } from "../utils";
+import { getAddress, getMapPreview } from "../utils";
+import { COLORS } from "../constants";
+import { Button } from "./Button";
 
 type Location = {
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lng: number;
 };
 
-export const LocationPicker = () => {
-  const [location, setLocation] = useState<Location>();
+type Props = {
+  onLocationPick: (location: Location, address?: string) => void;
+  location?: Location;
+};
+
+export const LocationPicker: React.FC<Props> = ({
+  onLocationPick,
+  location,
+}) => {
   const [permissions, requestPermissions] = useForegroundPermissions();
+  const navigation = useNavigation<any>();
+
+  useEffect(() => {
+    if (!location) return;
+
+    const confirmLocation = async () => {
+      const address = await getAddress(location.lat, location.lng);
+      onLocationPick(location, address);
+    };
+
+    confirmLocation();
+  }, [location, getAddress]);
 
   const verifyPermissions = async () => {
     if (permissions?.status === PermissionStatus.UNDETERMINED) {
@@ -38,33 +58,36 @@ export const LocationPicker = () => {
   };
 
   const onLocateUser = async () => {
-    const hasPermission = await verifyPermissions();
-    console.log({ hasPermission });
-    if (!hasPermission) {
-      return;
-    }
+    try {
+      const hasPermission = await verifyPermissions();
 
-    const { coords } = await getCurrentPositionAsync();
+      if (!hasPermission) {
+        return;
+      }
 
-    if (coords) {
-      setLocation({
-        longitude: coords.longitude,
-        latitude: coords.latitude,
+      const { coords } = await getCurrentPositionAsync();
+      onLocationPick({
+        lat: coords.latitude,
+        lng: coords.longitude,
       });
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const onChooseLocationFromMap = () => {
-    //
+    navigation.push("Map", {
+      onLocationPick,
+    });
   };
 
   return (
     <Pressable style={({ pressed }) => [styles.container]}>
       <View>
-        {location?.latitude && location?.longitude ? (
+        {location?.lat && location?.lng ? (
           <Image
             source={{
-              uri: getMapPreview(location.latitude, location.longitude),
+              uri: getMapPreview(location.lat, location.lng),
             }}
             style={styles.image}
           />
@@ -83,7 +106,7 @@ export const LocationPicker = () => {
         />
         <Button
           text="Pick On Map"
-          onPress={() => ""}
+          onPress={onChooseLocationFromMap}
           icon={<Map size={20} color={COLORS.primary100} />}
           style={styles.button}
         />
