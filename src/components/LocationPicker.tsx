@@ -6,16 +6,12 @@ import {
   PermissionStatus,
   useForegroundPermissions,
 } from "expo-location";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { getAddress, getMapPreview } from "../utils";
 import { COLORS } from "../constants";
+import { Location } from "../models";
 import { Button } from "./Button";
-
-type Location = {
-  lat: number;
-  lng: number;
-};
 
 type Props = {
   onLocationPick: (location: Location, address?: string) => void;

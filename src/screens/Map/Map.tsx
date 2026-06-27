@@ -5,14 +5,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Save } from "lucide-react-native";
 
 import { IconButton } from "../../components";
+import { Location } from "../../models";
 
-type Location = {
-  lat: number;
-  lng: number;
-};
-type Props = {};
-
-const Map: React.FC<Props> = () => {
+const Map: React.FC = () => {
   const [coordinate, setCoordinate] = useState<Location>();
   const navigation = useNavigation<any>();
   const route = useRoute<any>();

@@ -1,20 +1,20 @@
-import { StyleSheet, ScrollView } from "react-native";
-import {} from "react-native";
-import { Button, ImagePicker, Input, LocationPicker } from "../../components";
+import { StyleSheet, ScrollView, Alert } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+
+import { Location, Place } from "../../models";
+import { Button, ImagePicker, Input, LocationPicker } from "../../components";
 
 type Form = {
   title?: string;
   image?: string;
-  location?: {
-    lat: number;
-    lng: number;
-  };
+  location?: Location;
   address?: string;
 };
 
 const AddPlace = () => {
   const [form, setForm] = useState<Form>();
+  const navigation = useNavigation<any>();
 
   const onFieldChange = <K extends keyof Form>(field: K, value: Form[K]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -30,7 +30,26 @@ const AddPlace = () => {
   };
 
   const onSubmit = () => {
-    console.log(form);
+    const { title, image, address, location } = form || {};
+
+    if (!title) {
+      Alert.alert("Missing Data", "Please enter title to continue");
+      return;
+    }
+
+    if (!image) {
+      Alert.alert("Missing Data", "Please take a photo to continue");
+      return;
+    }
+
+    if (!location || !address) {
+      Alert.alert("Missing Data", "Please pick a location to continue");
+      return;
+    }
+
+    const place = new Place(title, image, address, location);
+
+    navigation.navigate("AllPlaces", { place });
   };
 
   return (

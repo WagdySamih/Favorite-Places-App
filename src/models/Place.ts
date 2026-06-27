@@ -1,6 +1,6 @@
-type Location = {
-  latitude: number;
-  longitude: number;
+export type Location = {
+  lat: number;
+  lng: number;
 };
 
 export class Place {
