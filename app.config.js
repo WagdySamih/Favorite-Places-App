@@ -9,6 +9,7 @@ export default {
     userInterfaceStyle: "light",
     ios: {
       supportsTablet: true,
+      bundleIdentifier: "com.anonymous.favoriteplacesapp",
     },
     android: {
       adaptiveIcon: {
