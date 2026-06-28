@@ -15,11 +15,12 @@ export class Place {
     imageURL: string,
     address: string,
     location: Location,
+    id: string,
   ) {
     this.title = title;
     this.address = address;
     this.imageUri = imageURL;
     this.location = location;
-    this.id = new Date().toString() + Math.random();
+    this.id = id;
   }
 }

@@ -29,6 +29,7 @@ const PlaceDetails = () => {
             lat: res?.lat || 0,
             lng: res?.lng || 0,
           },
+          res?.id.toString() || "",
         );
         setPlace(place);
       })
