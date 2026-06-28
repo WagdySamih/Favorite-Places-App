@@ -48,7 +48,6 @@ const AddPlace = () => {
       return;
     }
 
-    const place = new Place(title, image, address, location);
     const res = await insertPlace(
       title,
       image,
@@ -57,7 +56,7 @@ const AddPlace = () => {
       location.lng,
     );
 
-    navigation.navigate("AllPlaces", { place });
+    navigation.navigate("AllPlaces");
   };
 
   return (
