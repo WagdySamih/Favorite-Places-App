@@ -8,19 +8,22 @@ import { IconButton } from "../../components";
 import { Location } from "../../models";
 
 const Map: React.FC = () => {
-  const [coordinate, setCoordinate] = useState<Location>();
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
   const onLocationPick = route.params.onLocationPick;
+  const location = route.params.location;
+  const [coordinate, setCoordinate] = useState<Location>(location);
 
   const initialRegion = {
-    latitude: 31.2058,
-    longitude: 29.9245,
+    latitude: coordinate?.lat ?? 31.2058,
+    longitude: coordinate?.lng ?? 29.9245,
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   };
 
   const onLocationSelect = (event: MapPressEvent) => {
+    if (location) return;
+
     const lat = event.nativeEvent.coordinate.latitude;
     const lng = event.nativeEvent.coordinate.longitude;
     setCoordinate({ lat, lng });
@@ -38,6 +41,8 @@ const Map: React.FC = () => {
   }, [navigation, coordinate]);
 
   useLayoutEffect(() => {
+    if (location) return;
+
     navigation.setOptions({
       headerRight: ({ tintColor }: any) => (
         <IconButton
@@ -56,7 +61,10 @@ const Map: React.FC = () => {
     >
       {coordinate?.lat && coordinate?.lng && (
         <Marker
-          coordinate={{ latitude: coordinate?.lat, longitude: coordinate?.lng }}
+          coordinate={{
+            latitude: coordinate?.lat,
+            longitude: coordinate?.lng,
+          }}
         />
       )}
     </MapView>

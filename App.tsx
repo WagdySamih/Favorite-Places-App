@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Plus } from "lucide-react-native";
 import * as SplashScreen from "expo-splash-screen";
 
-import { AddPlace, AllPlaces, Map } from "./src/screens";
+import { AddPlace, AllPlaces, Map, PlaceDetails } from "./src/screens";
 import { IconButton } from "./src/components";
 import { COLORS } from "./src/constants";
 import { init } from "./src/utils";
@@ -19,7 +19,6 @@ export default function App() {
     async function prepare() {
       try {
         init();
-        console.log("ready");
       } catch (e) {
         console.warn({ e });
       } finally {
@@ -71,6 +70,14 @@ export default function App() {
             component={AddPlace}
             options={{
               title: "Add New Place",
+              headerBackTitle: "Back",
+            }}
+          />
+          <Stack.Screen
+            name="PlaceDetails"
+            component={PlaceDetails}
+            options={{
+              title: "Place Details",
               headerBackTitle: "Back",
             }}
           />

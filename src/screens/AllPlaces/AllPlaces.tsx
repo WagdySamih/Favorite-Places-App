@@ -10,7 +10,6 @@ import { fetchPlaces } from "../../utils";
 
 const AllPlaces = () => {
   const navigation = useNavigation<any>();
-  const route = useRoute<any>();
   const [places, setPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
@@ -38,7 +37,12 @@ const AllPlaces = () => {
       <FlatList
         data={places as Place[]}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PlaceItem place={item} onPress={() => ""} />}
+        renderItem={({ item }) => (
+          <PlaceItem
+            place={item}
+            onPress={() => navigation.navigate("PlaceDetails", { id: item.id })}
+          />
+        )}
       />
     </View>
   );

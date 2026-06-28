@@ -4,3 +4,4 @@ export * from "./Input";
 export * from "./ImagePicker";
 export * from "./Button";
 export * from "./LocationPicker";
+export * from "./LoadingOverlay";

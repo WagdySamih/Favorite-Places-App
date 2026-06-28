@@ -56,7 +56,6 @@ const AddPlace = () => {
       location.lat,
       location.lng,
     );
-    console.log(res);
 
     navigation.navigate("AllPlaces", { place });
   };
