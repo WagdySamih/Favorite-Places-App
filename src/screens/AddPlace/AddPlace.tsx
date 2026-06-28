@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Location, Place } from "../../models";
 import { Button, ImagePicker, Input, LocationPicker } from "../../components";
+import { insertPlace } from "../../utils";
 
 type Form = {
   title?: string;
@@ -29,7 +30,7 @@ const AddPlace = () => {
     onFieldChange("address", address);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const { title, image, address, location } = form || {};
 
     if (!title) {
@@ -48,6 +49,14 @@ const AddPlace = () => {
     }
 
     const place = new Place(title, image, address, location);
+    const res = await insertPlace(
+      title,
+      image,
+      address,
+      location.lat,
+      location.lng,
+    );
+    console.log(res);
 
     navigation.navigate("AllPlaces", { place });
   };

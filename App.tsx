@@ -1,15 +1,37 @@
+import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Plus } from "lucide-react-native";
+import * as SplashScreen from "expo-splash-screen";
 
 import { AddPlace, AllPlaces, Map } from "./src/screens";
 import { IconButton } from "./src/components";
 import { COLORS } from "./src/constants";
+import { init } from "./src/utils";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        init();
+        console.log("ready");
+      } catch (e) {
+        console.warn({ e });
+      } finally {
+        setAppIsReady(true);
+        await SplashScreen.hideAsync(); // Hide splash screen
+      }
+    }
+    prepare();
+  }, []);
+
+  if (!appIsReady) return null;
+
   return (
     <>
       <NavigationContainer>

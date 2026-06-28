@@ -14,7 +14,7 @@ export const PlaceItem: React.FC<Props> = ({ place, onPress }) => {
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
     >
       <Image
-        source={{ uri: place.imageURL }}
+        source={{ uri: place.imageUri }}
         style={styles.image}
         resizeMode="cover"
       />

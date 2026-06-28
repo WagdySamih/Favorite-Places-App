@@ -6,6 +6,7 @@ import { Plus } from "lucide-react-native";
 import { Place } from "../../models";
 import { Button, PlaceItem } from "../../components";
 import { COLORS } from "../../constants";
+import { fetchPlaces } from "../../utils";
 
 const AllPlaces = () => {
   const navigation = useNavigation<any>();
@@ -13,9 +14,7 @@ const AllPlaces = () => {
   const [places, setPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
-    if (route.params?.place) {
-      setPlaces([route.params.place as Place]);
-    }
+    fetchPlaces().then((res) => setPlaces(res as unknown as Place[]));
   }, []);
 
   if (!places.length) {

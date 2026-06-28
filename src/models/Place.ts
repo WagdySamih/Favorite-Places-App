@@ -5,7 +5,7 @@ export type Location = {
 
 export class Place {
   title: string;
-  imageURL: string;
+  imageUri: string;
   address: string;
   location: Location;
   id: string;
@@ -18,7 +18,7 @@ export class Place {
   ) {
     this.title = title;
     this.address = address;
-    this.imageURL = imageURL;
+    this.imageUri = imageURL;
     this.location = location;
     this.id = new Date().toString() + Math.random();
   }
