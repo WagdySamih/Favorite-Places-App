@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
+    marginBottom: 6,
   },
   pressed: {
     opacity: 0.75,
